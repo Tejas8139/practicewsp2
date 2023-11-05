@@ -23,7 +23,7 @@ namespace BooksOnline.Models
             optionsBuilder.UseSqlServer("User ID=sa;password=examlyMssql@123; server=localhost;Database=ApplicatinDb;trusted_connection=false;Persist Security Info=False;Encrypt=False;");
          }
        }
-       public DbSet<Category>Categories{get;set;}
+       public DbSet<Category>category1{get;set;}
 
        protected override void OnModelCreating(ModelBuilder modelBuilder)
        {
