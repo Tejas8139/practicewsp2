@@ -18407,6 +18407,11 @@
       "FilePath": "/home/coder/project/workspace/BooksOnline/Views/Home/Index.cshtml",
       "TargetPath": "Views\\Home\\Index.cshtml",
       "FileKind": "mvc"
+    },
+    {
+      "FilePath": "/home/coder/project/workspace/BooksOnline/Views/Category/index.cshtml",
+      "TargetPath": "Views\\Category\\index.cshtml",
+      "FileKind": "mvc"
     }
   ],
   "SerializationFormat": "0.3"

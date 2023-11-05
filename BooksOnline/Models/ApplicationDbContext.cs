@@ -24,5 +24,6 @@ namespace BooksOnline.Models
          }
        }
        public DbSet<Category>Categories{get;set;}
+       
     }
 }
