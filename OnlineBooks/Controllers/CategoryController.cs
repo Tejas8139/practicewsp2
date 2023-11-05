@@ -20,10 +20,10 @@ namespace BooksOnline.Controllers
        }
         public IActionResult Show()
         {
-            // var objCategoryList = _db.category1.ToList();
+            var objCategoryList = _db.category1.ToList();
             //or
-            List<Category>objCategoryList = _db.category1.ToList();
-            return View();
+            // List<Category>objCategoryList = _db.category1.ToList();
+            // return View();
         }
 
     

@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BooksOnline.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231105101303_SeedCAtegoryTable")]
-    partial class SeedCAtegoryTable
+    [Migration("20231105121346_InitialSetup1")]
+    partial class InitialSetup1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
