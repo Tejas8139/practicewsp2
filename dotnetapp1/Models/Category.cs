@@ -8,8 +8,8 @@ namespace dotnetapp1.Models
 {
     public class Category
     {
-    
-        public int Id{get;set;}
+        [Key]
+        public int Person_Id{get;set;}
 
         [Required]
         public string Name{get;set;}
