@@ -16,6 +16,14 @@ namespace dotnetapp1.Models
         }
 
         public DbSet<Category>Categoriess{get;set;}
-        
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Category>.HasData(
+                new Category {Id - }
+
+
+            )
+        }
     }
 }
