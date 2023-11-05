@@ -1,15 +1,17 @@
 using BooksOnline.Models;
+using Microsoft.EntityFrameworkCore;
+using System.Data.SqlClient;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-// builder.Services.AddDbContext<ApplicationDbContext>(options=>options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+ builder.Services.AddDbContext<ApplicationDbContext>(options=>{options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+ });
 
-builder.Services.AddDbContext<BookDbContext>(Options=>{
-    Options.UseSqlServer(builder.Configuration.GetConnectionString("BookDbConnection"));
-});
+
 
 
 
@@ -35,3 +37,5 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+
+

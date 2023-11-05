@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using BooksOnline.Controllers;
+using BooksOnline.Models;
 namespace BooksOnline.Controllers
 {
   
@@ -15,10 +16,13 @@ namespace BooksOnline.Controllers
        
        public CategoryController(ApplicationDbContext db)
        {
-        
+            _db = db;
        }
         public IActionResult Index()
         {
+            // var objCategoryList = _db.Categories.ToList();
+            //or
+            List<Category>objCategoryList = _db.Categories.ToList();
             return View();
         }
 
