@@ -11,8 +11,8 @@ using dotnetapp1.Models;
 namespace dotnetapp1.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231105133406_SeedCatagoryMigration")]
-    partial class SeedCatagoryMigration
+    [Migration("20231105181857_mgf")]
+    partial class mgf
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -42,32 +42,6 @@ namespace dotnetapp1.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categoriess");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            DisplayOrder = 3,
-                            Name = "Action"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            DisplayOrder = 2,
-                            Name = "SciFi"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            DisplayOrder = 21,
-                            Name = "Romantic"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            DisplayOrder = 90,
-                            Name = "History"
-                        });
                 });
 #pragma warning restore 612, 618
         }

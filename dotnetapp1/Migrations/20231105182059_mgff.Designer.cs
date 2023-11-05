@@ -11,8 +11,8 @@ using dotnetapp1.Models;
 namespace dotnetapp1.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231105180450_SeedCatagoryMigration1")]
-    partial class SeedCatagoryMigration1
+    [Migration("20231105182059_mgff")]
+    partial class mgff
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -26,11 +26,11 @@ namespace dotnetapp1.Migrations
 
             modelBuilder.Entity("dotnetapp1.Models.Category", b =>
                 {
-                    b.Property<int>("Person_Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Person_Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("DisplayOrder")
                         .HasColumnType("int");
@@ -39,9 +39,9 @@ namespace dotnetapp1.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Person_Id");
+                    b.HasKey("Id");
 
-                    b.ToTable("Categoriess");
+                    b.ToTable("Categories");
                 });
 #pragma warning restore 612, 618
         }

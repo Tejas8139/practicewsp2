@@ -22,7 +22,7 @@ namespace dotnetapp1.Controllers
         public IActionResult Index()
         {
             //var objCategoryList =_db.Categoriess.ToList();
-            List<Category>objCategoryList = _db.Categoriess.ToList();
+            List<Category>objCategoryList = _db.Categories.ToList();
             return View(objCategoryList);
         }
 

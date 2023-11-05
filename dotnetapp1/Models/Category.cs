@@ -9,7 +9,7 @@ namespace dotnetapp1.Models
     public class Category
     {
         [Key]
-        public int Person_Id{get;set;}
+        public int Id{get;set;}
 
         [Required]
         public string Name{get;set;}
