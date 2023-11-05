@@ -18,7 +18,7 @@ namespace BooksOnline.Controllers
        {
             _db = db;
        }
-        public IActionResult Index()
+        public IActionResult Show()
         {
             // var objCategoryList = _db.Categories.ToList();
             //or
