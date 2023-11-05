@@ -4,21 +4,21 @@
 <table class="table">
   <thead class="thead-dark">
     <tr>
-      <th scope="col">Category Name</th>
+      <th >Category Name</th>
 
-      <th scope="col">Display Order</th>
+      <th >Display Order</th>
     </tr>
   </thead>
   <tbody>
 
-    @foreach (var obj in Model)
+    @foreach(var obj in Model)
     {
         <tr>
     
-         <td>Mark</td>
-         <td>Otto</td>
+         <td>@obj.Name</td>
+         <td>@obj.DisplayOrder </td>
 
-    }   </tr>
-
+       </tr>
+    }
   </tbody>
 </table>
