@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "SZXXthalr7cNVVRsNf9RKsFKedhucneIefFy2GfCoLV61anGH30QiJSro8ySTX0XP8cuOGH7NuhoEi1l4FRCVg==",
+  "dgSpecHash": "6Q/eZ7bUlsjJp3Bqsuot+f9g/A8VPOOlTfago2B+9FRTakpBFmVzbnNW6yRD/sraPc5tqWO+xSHR7PzyndsUIw==",
   "success": true,
   "projectFilePath": "/home/coder/project/workspace/BooksOnline/BooksOnline.csproj",
   "expectedPackageFiles": [
@@ -17,6 +17,7 @@
     "/home/coder/.nuget/packages/microsoft.entityframeworkcore.design/7.0.13/microsoft.entityframeworkcore.design.7.0.13.nupkg.sha512",
     "/home/coder/.nuget/packages/microsoft.entityframeworkcore.relational/7.0.13/microsoft.entityframeworkcore.relational.7.0.13.nupkg.sha512",
     "/home/coder/.nuget/packages/microsoft.entityframeworkcore.sqlserver/7.0.13/microsoft.entityframeworkcore.sqlserver.7.0.13.nupkg.sha512",
+    "/home/coder/.nuget/packages/microsoft.entityframeworkcore.tools/7.0.13/microsoft.entityframeworkcore.tools.7.0.13.nupkg.sha512",
     "/home/coder/.nuget/packages/microsoft.extensions.caching.abstractions/7.0.0/microsoft.extensions.caching.abstractions.7.0.0.nupkg.sha512",
     "/home/coder/.nuget/packages/microsoft.extensions.caching.memory/7.0.0/microsoft.extensions.caching.memory.7.0.0.nupkg.sha512",
     "/home/coder/.nuget/packages/microsoft.extensions.configuration.abstractions/7.0.0/microsoft.extensions.configuration.abstractions.7.0.0.nupkg.sha512",
