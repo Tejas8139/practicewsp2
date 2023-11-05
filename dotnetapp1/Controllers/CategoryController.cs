@@ -21,8 +21,8 @@ namespace dotnetapp1.Controllers
         }
         public IActionResult Index()
         {
-            var objCategoryList =_db.Categoriess.ToList();
-            //List<Category>objCategoryList = _db.Categoriess.ToList();
+            //var objCategoryList =_db.Categoriess.ToList();
+            List<Category>objCategoryList = _db.Categoriess.ToList();
             return View(objCategoryList);
         }
 
