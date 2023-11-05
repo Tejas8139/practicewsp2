@@ -13,8 +13,9 @@ namespace dotnetapp1.Models
         }
         public AppDbContext(DbContextOptions<AppDbContext> options):base(options)
         {
-            
         }
+
+        public DbSet<Category>Categoriess{get;set;}
         
     }
 }
