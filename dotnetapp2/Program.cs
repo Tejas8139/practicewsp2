@@ -1,7 +1,15 @@
-var builder = WebApplication.CreateBuilder(args);
+using dotnetapp2.Models;
+using Microsoft.EntityFrameworkCore;
+using System.Data.SqlClient;
 
+var builder = WebApplication.CreateBuilder(args);
+var con = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<ApplicationDbContext>(options=>options.UseSqlServer(con));
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+// builder.Services.AddDbContext<ApplicationDbContext>(Options=>{
+//     Options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+// });
 
 var app = builder.Build();
 

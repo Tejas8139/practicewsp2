@@ -6,13 +6,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace dotnetapp2.Models
 {
-    public class Category
+    public class Category1
     {
         [Key]
         public int Id{get;set;}
 
         [Required]
-        public string Name{get;set;}
+        public string Name {get;set;} 
 
         public int DisplayOrder{get;set;}
 
