@@ -36,7 +36,7 @@ namespace dotnetapp2.Controllers
         {
             _db.Categories2.Add(obj);
             _db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index","Category");
         }
 
     }
