@@ -39,5 +39,29 @@ namespace dotnetapp2.Controllers
             return RedirectToAction("Index","Category");
         }
 
+
+         public IActionResult Edit(int? id)
+        {
+            if(id==null||id==0)
+            {
+                return NotFound();
+            }
+
+            Category1 categoryFromDb=_db.Categories2.Find(id);
+            if (categoryFromDb==null)
+            {
+                return NotFound();
+            }
+            return View(categoryFromDb);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Category1 obj)
+        {
+            _db.Categories2.Add(obj);
+            _db.SaveChanges();
+            return RedirectToAction("Index","Category");
+        }
+
     }
 }
