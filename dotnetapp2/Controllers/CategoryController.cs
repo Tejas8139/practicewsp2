@@ -80,9 +80,14 @@ namespace dotnetapp2.Controllers
         }
 
         [HttpPost]
-        public IActionResult Delete(Category1 obj)
+        public IActionResult Delete(int id)
         {
-            _db.Categories2.(obj);
+             Category1 obj =_db.Categories2.Find(id);
+             if(obj==null)
+             {
+                return NotFound();
+             }
+            _db.Categories2.Remove(obj);
             _db.SaveChanges();
             return RedirectToAction("Index","Category");
         }
