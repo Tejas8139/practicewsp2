@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using dotnetapp2.Models;
 
+
 namespace dotnetapp2.Controllers
 {
  
@@ -31,9 +32,11 @@ namespace dotnetapp2.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create1()
+        public IActionResult Create(Category1 obj)
         {
-            return View();
+            _db.Categories2.Add(obj);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
     }
