@@ -58,7 +58,7 @@ namespace dotnetapp2.Controllers
         [HttpPost]
         public IActionResult Edit(Category1 obj)
         {
-            _db.Categories2.Add(obj);
+            _db.Categories2.Update(obj);
             _db.SaveChanges();
             return RedirectToAction("Index","Category");
         }
