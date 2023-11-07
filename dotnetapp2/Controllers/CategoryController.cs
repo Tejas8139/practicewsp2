@@ -22,7 +22,7 @@ namespace dotnetapp2.Controllers
         }
         public IActionResult Index()
         {
-            //var objCategoryList =_db.Categories.ToList();
+            //var objCategoryList =_db.Categories2.ToList();
             List<Category1>objCategoryList = _db.Categories2.ToList();
             return View(objCategoryList);
         }
@@ -62,6 +62,31 @@ namespace dotnetapp2.Controllers
             _db.SaveChanges();
             return RedirectToAction("Index","Category");
         }
+
+
+      public IActionResult Delete(int? id)
+        {
+            if(id==null||id==0)
+            {
+                return NotFound();
+            }
+
+            Category1 categoryFromDb=_db.Categories2.Find(id);
+            if (categoryFromDb==null)
+            {
+                return NotFound();
+            }
+            return View(categoryFromDb);
+        }
+
+        [HttpPost]
+        public IActionResult Delete(Category1 obj)
+        {
+            _db.Categories2.(obj);
+            _db.SaveChanges();
+            return RedirectToAction("Index","Category");
+        }
+
 
     }
 }
