@@ -1,9 +1,13 @@
 console.log("Welsome to Typescript");
-function AddShipping(price, shipping) {
-    console.log(price + shipping);
-}
-AddShipping(10, 20);
+// function AddShipping(price:number, shipping: number)
+// {
+//     console.log(price+shipping);
+// }
+// AddShipping(10,20);
 function AddShipping1(price, shipping) {
+    if ((price + shipping) == 30) {
+        return true;
+    }
     return (price + shipping);
 }
-AddShipping(10, 20);
+AddShipping1(90, 20);
