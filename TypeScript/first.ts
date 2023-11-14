@@ -6,12 +6,18 @@ console.log("Welsome to Typescript")
 // }
 // AddShipping(10,20);
 
-function AddShipping1(price:number, shipping: number):number|boolean
+// function AddShipping1(price:number, shipping: number):number|boolean
+// {
+//     if((price+shipping)==30)
+//     {
+//         return true;
+//     }
+//     return (price+shipping);
+// }
+// AddShipping1(90,20);
+
+var fruits=['Apple','Mango','Orange','Grapes']
+for(var i=0;i<fruits.length;i++)
 {
-    if((price+shipping)==30)
-    {
-        return true;
-    }
-    return (price+shipping);
+    console.log(fruits[i])
 }
-AddShipping1(90,20);
