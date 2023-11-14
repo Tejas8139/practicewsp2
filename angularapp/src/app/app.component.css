@@ -2,3 +2,8 @@ p
 {
     color:orange;
 }
+input 
+{
+    display: block;
+    margine:10 0
+}

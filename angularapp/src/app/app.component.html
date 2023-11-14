@@ -1,5 +1,9 @@
 <h1> My Angular App</h1>
 <p>Welcome</p>
 <hr>
+<input (keyup)="changeImage($event)">
+
+<img [src] ="imgURL">
+
 <h3>{{title}}</h3>
 <p>{{20+30}}</p>
