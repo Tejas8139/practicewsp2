@@ -7,16 +7,17 @@ import { FormGroup,FormControl,Validators } from '@angular/forms';
   styleUrls: ['./emp.component.css']
 })
 export class EmpComponent implements OnInit {
+  constructor(){}
 
-  constructor(private formbuilder:FormBuilder) { }
-empform=this.formbuilder.group({
-  name:['',[Validators.required,Validators.maxLength(40)]],
-  email:['',Validators.email],
-  city:['',Validators.pattern("[a-zA-Z]")]
-})
-save():void{
-  console.log(this.empform.value)
-}
+//   constructor(private formbuilder:FormBuilder) { }
+// empform=this.formbuilder.group({
+//   name:['',[Validators.required,Validators.maxLength(40)]],
+//   email:['',Validators.email],
+//   city:['',Validators.pattern("[a-zA-Z]")]
+// })
+// save():void{
+//   console.log(this.empform.value)
+// }
   ngOnInit() {
   }
 
