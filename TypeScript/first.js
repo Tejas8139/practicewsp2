@@ -13,7 +13,16 @@ console.log("Welsome to Typescript");
 //     return (price+shipping);
 // }
 // AddShipping1(90,20);
-var fruits = ['Apple', 'Mango', 'Orange', 'Grapes'];
-for (var i = 0; i < fruits.length; i++) {
-    console.log(fruits[i]);
-}
+// var fruits=['Apple','Mango','Orange','Grapes']
+// for(var i=0;i<fruits.length;i++)
+// {
+//     console.log(fruits[i])
+// }
+var Point = /** @class */ (function () {
+    function Point() {
+    }
+    return Point;
+}());
+var pt = new Point();
+pt.x = 0;
+pt.y = 0;

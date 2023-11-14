@@ -16,8 +16,17 @@ console.log("Welsome to Typescript")
 // }
 // AddShipping1(90,20);
 
-var fruits=['Apple','Mango','Orange','Grapes']
-for(var i=0;i<fruits.length;i++)
-{
-    console.log(fruits[i])
-}
+// var fruits=['Apple','Mango','Orange','Grapes']
+// for(var i=0;i<fruits.length;i++)
+// {
+//     console.log(fruits[i])
+// }
+
+class Point {
+    x: number=10;
+    y: number=1000;
+  }
+  
+  const pt = new Point();
+  pt.x = 0;
+  pt.y = 0;
