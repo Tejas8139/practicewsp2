@@ -12,7 +12,10 @@ import { DemoComponent } from './demo/demo.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    DemoComponent
+
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

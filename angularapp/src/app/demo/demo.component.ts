@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { FormGroup, FormControl,Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-demo',
@@ -7,8 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DemoComponent implements OnInit {
 
-  constructor() { }
+  constructor(private formbuilder:FormBuilder) { }
+  empform=this.formbuilder.group({
+    name:['',[Validators.required,Validators.maxLength(30)]],
+    email:['',Validators.email],
+    city:['',Validators.pattern("[a-zA-Z]")]
 
+  })
+save():void{
+  console.log(this.empform.value)
+}
   ngOnInit() {
   }
 
