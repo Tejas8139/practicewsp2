@@ -7,7 +7,7 @@ import { FormGroup,FormControl,Validators } from '@angular/forms';
   styleUrls: ['./emp.component.css']
 })
 export class EmpComponent implements OnInit {
-  constructor(){}
+  // constructor(){}
 
 //   constructor(private formbuilder:FormBuilder) { }
 // empform=this.formbuilder.group({
