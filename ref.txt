@@ -1,0 +1,556 @@
+job-application-model
+---------------------
+import { JobApplication } from "./job-application.model";
+
+describe('JobApplication Models', () => {
+  fit('JobApplication_Model_should_create_Job_Application_instance_Interface', () => {
+    const Job_Application: JobApplication = {
+      id:1,
+      jobPositionId: 1,
+      applicantName: "Demo",
+      status:"A"
+    };
+    expect(Job_Application).toBeTruthy();
+    expect(Job_Application['id']).toBe(1);
+    expect(Job_Application['jobPositionId']).toBe(1);
+    expect(Job_Application['applicantName']).toBe("Demo");
+    expect(Job_Application['status']).toBe("A");
+  });
+===========================================================
+job-applications.component
+------------------------------------
+import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
+import { JobApplicationsComponent } from './job-applications.component';
+import { HttpClientModule } from '@angular/common/http';
+import { of } from 'rxjs';
+import { JobService } from '../services/job.service';
+
+describe('JobApplicationsComponent', () => {
+  let component: JobApplicationsComponent;
+  let fixture: ComponentFixture<JobApplicationsComponent>;
+  // let jobServiceSpy: any;
+  let jobService: jasmine.SpyObj<JobService>;
+  beforeEach(() => {
+    const jobServiceSpy = jasmine.createSpyObj('JobService', ['getJobPostings', 'applyForJob']);
+
+    TestBed.configureTestingModule({
+      declarations: [JobApplicationsComponent],
+      imports: [ReactiveFormsModule,HttpClientModule],
+      providers: [{ provide: ['JobService'], useValue: jobServiceSpy }],
+    });
+
+    fixture = TestBed.createComponent(JobApplicationsComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+    jobService = TestBed.inject(JobService) as jasmine.SpyObj<JobService>;
+
+  });
+
+  fit('JobApplicationsComponent should be created', () => {
+    expect(component).toBeTruthy();
+  });
+
+  fit('JobApplicationsComponent should initialize the JobApplication applyForJob function', () => {
+    expect(component['applyForJob']).toBeDefined();
+  });
+
+
+  fit('JobApplicationsComponent should call applyForJob when the form is submitted', fakeAsync(() => {
+    // spyOn(component, 'applyForJob');
+    component['applyForJob'] = jasmine.createSpy('applyForJob');
+
+    const form = fixture.nativeElement.querySelector('form');
+    form.dispatchEvent(new Event('submit'));
+    tick();
+    expect(component['applyForJob']).toHaveBeenCalled();
+  }));
+
+  fit('JobApplicationsComponent should validate required fields in the application form', () => {
+    const form = component['jobApplicationForm'];
+    expect(form.valid).toBeFalsy();
+    form.controls['applicantName'].setValue('Test Title');
+    form.controls['jobPositionId'].setValue(1);
+    expect(form.valid).toBeTruthy();
+  });
+
+
+  fit('JobApplicationsComponent should not submit application if field is empty in the form', () => {
+    const form = component['jobApplicationForm'];
+    expect(form.valid).toBeFalsy();
+    form.controls['applicantName'].setValue('Test Title');
+    form.controls['jobPositionId'].setValue('');
+    expect(form.valid).toBeFalsy();
+  });
+
+  fit('JobApplicationsComponent should show the job position dropdown if jobPositions are available', () => {
+    // Set the jobPositions array in the component
+    component['jobPositions'] = [{ id: 1, title: 'Software Developer' }];
+
+    fixture.detectChanges(); // Trigger change detection
+
+    const dropdown = fixture.nativeElement.querySelector('#jobPositionId');
+    expect(dropdown).toBeTruthy();
+  });
+
+  fit('JobApplicationsComponent should render job positions in the dropdown using ngFor', () => {
+    // Set jobPositions in the component
+    component['jobPositions'] = [
+      { id: 1, title: 'Software Developer' },
+      { id: 2, title: 'Data Analyst' },
+    ] as any;
+
+    fixture.detectChanges(); // Trigger change detection
+
+    const dropdownOptions = fixture.nativeElement.querySelectorAll('#jobPositionId option');
+    expect(dropdownOptions.length).toBe(2);
+    expect(dropdownOptions[0].textContent.trim()).toBe('Software Developer');
+    expect(dropdownOptions[1].textContent.trim()).toBe('Data Analyst');
+  });
+
+
+});
+=====================================================================
+job-position.model
+-------------------
+import { JobPosition } from './job-position.model';
+
+describe('JobPosition Models', () => {
+  fit('JobPosition_Models_should_create_JobPosition_instance_Interface', () => {
+    const JobPosition: JobPosition = {
+      id: 1,
+      title: "title",
+      department: 'A',
+      location: "state",
+      responsibilities: "asd",
+      qualifications: "asdf",
+      isClosed: true,
+      applicationDeadline: new Date('2023-08-30')
+    };
+    expect(JobPosition).toBeTruthy();
+    expect(JobPosition['id']).toBe(1);
+    expect(JobPosition['title']).toBe("title");
+    expect(JobPosition['department']).toBe('A');
+    expect(JobPosition['location']).toBe("state");
+    expect(JobPosition['responsibilities']).toBe("asd");
+    expect(JobPosition['qualifications']).toBe("asdf");
+    expect(JobPosition['applicationDeadline'] instanceof Date).toBe(true);
+    expect(JobPosition['isClosed']).toBe(true);
+  });
+=========================================================================
+job-posting-form.component
+--------------------------------
+import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
+import { JobPostingFormComponent } from './job-posting-form.component';
+import { HttpClientModule } from '@angular/common/http';
+
+describe('JobPostingFormComponent (HTML)', () => {
+  let component: JobPostingFormComponent;
+  let fixture: ComponentFixture<JobPostingFormComponent>;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [JobPostingFormComponent],
+      imports: [ReactiveFormsModule,HttpClientModule],
+    });
+
+    fixture = TestBed.createComponent(JobPostingFormComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  fit('JobPostingFormComponent should be created', () => {
+    expect(component).toBeTruthy();
+  });
+
+  fit('JobPostingFormComponent should initialize the submitJobPosting function', () => {
+    expect(component['submitJobPosting']).toBeDefined();
+  });
+
+  fit('JobPostingFormComponent should call submitJobPosting when the form is submitted', fakeAsync(() => {
+    // spyOn(component, 'submitJobPosting');
+    component['submitJobPosting'] = jasmine.createSpy('submitJobPosting');
+
+    const form = fixture.nativeElement.querySelector('form');
+    form.dispatchEvent(new Event('submit'));
+    tick();
+    expect(component['submitJobPosting']).toHaveBeenCalled();
+  }));
+
+  fit('JobPostingFormComponent should validate required fields in the job posting form', () => {
+    const form = component['jobPostingForm'];
+    expect(form.valid).toBeFalsy();
+    form['controls']['title'].setValue('Test Title');
+    form['controls']['department'].setValue('Test Department');
+    form['controls']['location'].setValue('Test Location');
+    form['controls']['responsibilities'].setValue('Test Responsibilities');
+    form['controls']['qualifications'].setValue('Test Qualifications');
+    form['controls']['applicationDeadline'].setValue('2023-12-31');
+    expect(form.valid).toBeTruthy();
+  });
+
+  fit('JobPostingFormComponent should not submit post if field is empty in the form', () => {
+    const form = component['jobPostingForm'];
+    expect(form.valid).toBeFalsy();
+    form['controls']['title'].setValue('Test Title');
+    form['controls']['department'].setValue('Test Department');
+    form['controls']['location'].setValue('Test Location');
+    form['controls']['responsibilities'].setValue('Test Responsibilities');
+    form['controls']['qualifications'].setValue('');
+    form['controls']['applicationDeadline'].setValue('2023-12-31');
+    expect(form.valid).toBeFalsy();
+  });
+
+
+  fit('JobPostingFormComponent should render the form fields', () => {
+    const compiled = fixture.nativeElement;
+    expect(compiled.querySelector('h2').textContent).toContain('Create Job Posting');
+    expect(compiled.querySelector('form')).toBeTruthy();
+    // expect(compiled.querySelector('label[for="title"]').textContent).toContain('Job Title');
+    expect(compiled.querySelector('input[id="title"]')).toBeTruthy();
+    // expect(compiled.querySelector('label[for="department"]').textContent).toContain('Department');
+    expect(compiled.querySelector('input[id="department"]')).toBeTruthy();
+    // expect(compiled.querySelector('label[for="location"]').textContent).toContain('Location');
+    expect(compiled.querySelector('input[id="location"]')).toBeTruthy();
+    // expect(compiled.querySelector('label[for="responsibilities"]').textContent).toContain('Responsibilities');
+    expect(compiled.querySelector('textarea[id="responsibilities"]')).toBeTruthy();
+    // expect(compiled.querySelector('label[for="qualifications"]').textContent).toContain('Qualifications');
+    expect(compiled.querySelector('textarea[id="qualifications"]')).toBeTruthy();
+    // expect(compiled.querySelector('label[for="applicationDeadline"]').textContent).toContain('Application Deadline');
+    expect(compiled.querySelector('input[id="applicationDeadline"]')).toBeTruthy();
+    expect(compiled.querySelector('button[type="submit"]').textContent).toContain('Submit');
+  });
+
+
+});
+====================================================
+job.service
+-----------
+import { TestBed, inject, waitForAsync } from '@angular/core/testing';
+import { HttpClientModule } from '@angular/common/http';
+import { JobService } from './job.service';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+
+
+describe('JobService Integration Tests', () => {
+  let service: JobService;
+  let httpMock: HttpTestingController;
+
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [HttpClientModule,HttpClientTestingModule],
+      providers: [JobService]
+    });
+    service = TestBed.get(JobService);
+    // jasmine.DEFAULT_TIMEOUT_INTERVAL = 3000;
+    httpMock = TestBed.inject(HttpTestingController);
+
+  });
+
+  fit('JobService_should_get_JobApplications', () => {
+    const mockPackages = [
+      {
+          id: 1,
+          jobPositionId: 123,
+          applicantName: 'John Doe',
+          status: 'shortlist',
+      },
+    ];
+    service['getJobApplications']().subscribe(packages => {
+      expect(packages).toEqual(mockPackages);
+    });
+
+    const req = httpMock.expectOne(`${service['apiUrl']}/applications`);
+    expect(req.request.method).toBe('GET');
+    req.flush(mockPackages);
+  });
+
+  fit('JobService_should_post_a_new_job_application', () => {
+    const newJobApplication = {
+      id:1,
+      jobPositionId: 123,
+      applicantName: 'John Doe',
+      status: 'pending'
+    };
+
+    service['applyForJob'](newJobApplication).subscribe(response => {
+      // Add expectations if needed
+      expect(response).toBeTruthy();
+
+    });
+
+    const req = httpMock.expectOne(`${service['apiUrl']}/application/add`);
+    expect(req.request.method).toBe('POST');
+    expect(req.request.body).toEqual(newJobApplication);
+    req.flush({});
+  });
+
+  fit('JobService_should_post_a_new_job_position', () => {
+    const newJobPosition = {
+      id: 1,
+      title: 'Software Developer',
+      department: 'IT',
+      location: 'Remote',
+      responsibilities: 'Develop software applications',
+      qualifications: 'Bachelor\'s degree in Computer Science',
+      applicationDeadline: new Date('2023-12-31'),
+      isClosed: false,
+      applications: [],
+    };
+
+    service['createJobPosition'](newJobPosition).subscribe(response => {
+      // Add expectations if needed
+      expect(response).toBeTruthy();
+
+    });
+
+    const req = httpMock.expectOne(`${service['apiUrl']}/position/add`);
+    expect(req.request.method).toBe('POST');
+    expect(req.request.body).toEqual(newJobPosition);
+    req.flush({});
+  });
+
+  fit('JobService_should_update_the_status_of_a_job_application', () => {
+    const applicationId = 1;
+    const applicantName = 'John Doe';
+    const newStatus = 'shortlist';
+    service['updateApplicationStatus'](applicationId, applicantName, newStatus).subscribe(res => {
+      // Add expectations if needed
+      expect(res).toBeTruthy();
+    });
+    const req = httpMock.expectOne(`${service['apiUrl']}/application/update/${applicationId}`);
+    expect(req.request.method).toBe('PUT');
+    expect(req.request.body).toEqual({ applicantName, status: newStatus });
+    req.flush({});
+  });
+
+  fit('JobService should get total applicants by job position id', () => {
+    const jobPositionId = 123;
+    const mockTotalApplicants = 10;
+
+    service['getTotalApplicantsByJobPositionId'](jobPositionId).subscribe((totalApplicants) => {
+      expect(totalApplicants).toEqual(mockTotalApplicants);
+    });
+
+    const req = httpMock.expectOne(`${service['apiUrl']}/applications/by-job-position?jobPositionId=${jobPositionId}`);
+    expect(req.request.method).toBe('GET');
+    req.flush(mockTotalApplicants);
+  });
+
+  fit('JobService_should_get_JobPostings', () => {
+    const mockPackages = [
+      {
+        id: 1,
+        title: 'Software Developer',
+        department: 'IT',
+        location: 'Remote',
+        responsibilities: 'Develop software applications',
+        qualifications: 'Bachelor\'s degree in Computer Science',
+        applicationDeadline: new Date('2023-12-31'),
+        isClosed: false,
+        applications: [],
+      },
+    ];
+
+    service['getJobPostings']().subscribe(packages => {
+      expect(packages).toEqual(mockPackages);
+    });
+
+    const req = httpMock.expectOne(`${service['apiUrl']}/positions`);
+    expect(req.request.method).toBe('GET');
+    req.flush(mockPackages);
+  });
+
+
+  fit('JobService_should_be_created', () => {
+    expect(service).toBeTruthy();
+  });
+
+  // fit('JobService_should_retrieve_JobPosition_from_the_backend', (done: DoneFn) => {
+  //   service['getJobPostings']().subscribe(
+  //     (teams: JobPosition[]) => {
+  //       console.log("length"+teams.length)
+  //       expect(teams.length).toBeGreaterThan(0); // Check if any teams are retrieved
+  //       done();
+  //     },
+  //     (error: any) => {
+  //       fail('Failed to retrieve teams: ' + JSON.stringify(error));
+  //     }
+  //   );
+  // });
+
+  // fit('JobService_should_retrieve_JopApplications_from_the_backend', (done: DoneFn) => {
+  //   service['getJobApplications']().subscribe(
+  //     (teams: JobApplication[]) => {
+  //       console.log("length"+teams.length)
+  //       expect(teams.length).toBeGreaterThan(0); // Check if any teams are retrieved
+  //       done();
+  //     },
+  //     (error: any) => {
+  //       fail('Failed to retrieve teams: ' + JSON.stringify(error));
+  //     }
+  //   );
+  // });
+
+  fit('JobService_should_have_a_markJobAsClosed_function', () => {
+    expect(service['markJobAsClosed']).toBeDefined();
+  });
+
+
+})
+=====================================
+navigation-menu.component
+----------------------------
+import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { NavigationMenuComponent } from './navigation-menu.component';
+import { RouterTestingModule } from '@angular/router/testing';
+import { Router } from '@angular/router';
+import { Location } from '@angular/common';
+import { By } from '@angular/platform-browser';
+
+describe('NavigationMenuComponent', () => {
+  let component: NavigationMenuComponent;
+  let fixture: ComponentFixture<NavigationMenuComponent>;
+  let router: Router;
+  let location: Location;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [NavigationMenuComponent],
+      imports: [RouterTestingModule],
+    });
+
+    fixture = TestBed.createComponent(NavigationMenuComponent);
+    component = fixture.componentInstance;
+    router = TestBed.get(Router);
+    location = TestBed.get(Location);
+    fixture.detectChanges();
+  });
+
+  fit('NavigationMenuComponent should create the NavigationMenu component', () => {
+    expect(component).toBeTruthy();
+  });
+
+  fit('NavigationMenuComponent should render navigation links', () => {
+    const links = fixture.debugElement.queryAll(By.css('.nav-item'));
+
+    expect(links.length).toBe(4); // Adjust the count based on your actual links
+    expect(links[0].nativeElement.textContent).toContain('Posts');
+    expect(links[1].nativeElement.textContent).toContain('Applications');
+    expect(links[2].nativeElement.textContent).toContain('Create Job');
+    expect(links[3].nativeElement.textContent).toContain('Apply Job');
+  });
+
+  
+});
+=============================================================
+  view-job-applications.component
+---------------------------------
+import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { ViewJobApplicationsComponent } from './view-job-applications.component';
+import { FormsModule } from '@angular/forms';
+import { JobService } from '../services/job.service';
+import { of } from 'rxjs';
+import { JobApplication } from 'src/models/job-application.model';
+
+describe('ViewJobApplicationsComponent', () => {
+  let component: ViewJobApplicationsComponent;
+  let fixture: ComponentFixture<ViewJobApplicationsComponent>;
+  let jobService: jasmine.SpyObj<JobService>;
+
+  beforeEach(async(() => {
+    const jobServiceSpy = jasmine.createSpyObj('JobService', ['getJobApplications', 'updateApplicationStatus']);
+
+    TestBed.configureTestingModule({
+      declarations: [ViewJobApplicationsComponent],
+      imports: [FormsModule],
+      providers: [{ provide: JobService, useValue: jobServiceSpy }],
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(ViewJobApplicationsComponent);
+    component = fixture.componentInstance;
+    jobService = TestBed.get(JobService) as jasmine.SpyObj<JobService>;
+  }));
+
+  fit('ViewJobApplicationsComponent should be created', () => {
+    expect(component).toBeTruthy();
+  });
+
+  fit('ViewJobApplicationsComponent_should_load_job_applications', () => {
+    const mockApplications: JobApplication[] = [
+      { id: 1, ['jobPositionId']: 1, applicantName: 'Applicant 1', status: 'shortlist' },
+      { id: 2, ['jobPositionId']: 2, applicantName: 'Applicant 2', status: 'reject' },
+    ];
+
+    jobService['getJobApplications'].and.returnValue(of(mockApplications));
+
+    component['loadJobApplications']();
+
+    expect(component['jobApplications']).toEqual(mockApplications);
+    console.log("byeee"+mockApplications);
+    console.log(mockApplications);
+
+
+  });
+
+  fit('ViewJobApplicationsComponent_should_render_a_table_with_headers', () => {
+    const compiled = fixture.nativeElement;
+    const table = compiled.querySelector('table');
+    expect(table).toBeTruthy();
+
+    const headers = table.querySelectorAll('thead th');
+    expect(headers.length).toBe(3); // Ensure there are 3 headers
+    expect(headers[0].textContent).toContain('Applicant Name');
+    expect(headers[1].textContent).toContain('Job Title');
+    expect(headers[2].textContent).toContain('Action');
+  });
+
+});
+=================================
+view-job-postings.component
+---------------------------
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
+import { ViewJobPostingsComponent } from './view-job-postings.component';
+import { HttpClientModule } from '@angular/common/http'; // Import HttpClientModule
+// import { JobService } from '../services/job.service'; // Import your JobService
+
+describe('ViewJobPostingsComponent', () => {
+  let component: ViewJobPostingsComponent;
+  let fixture: ComponentFixture<ViewJobPostingsComponent>;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [ViewJobPostingsComponent],
+      imports: [FormsModule, HttpClientModule], // Include HttpClientModule
+      // providers: [JobService], // Provide JobService
+    });
+
+    fixture = TestBed.createComponent(ViewJobPostingsComponent);
+    component = fixture.componentInstance;
+    // fixture.detectChanges();
+  });
+
+  fit('ViewJobPostingsComponent should be created', () => {
+    expect(component).toBeTruthy();
+  });
+
+  fit('ViewJobPostingsComponent_should_render_a_table_with_headers', () => {
+    fixture.detectChanges();
+
+    const compiled = fixture.nativeElement;
+    const table = compiled.querySelector('table');
+    expect(table).toBeTruthy();
+    const headers = compiled.querySelectorAll('th');
+    expect(headers.length).toBe(8); // Assuming you have 8 headers
+  });
+
+
+});
+========================================
+ 
+
+  
+
